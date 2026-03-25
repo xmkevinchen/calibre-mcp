@@ -78,6 +78,16 @@ Browse a series:
 list_series("Magic Tree House")
 ```
 
+## Updating
+
+`uvx` caches installed packages. To pull the latest version:
+
+```bash
+uvx --reinstall --from git+https://github.com/xmkevinchen/calibre-mcp.git calibre-mcp
+```
+
+Then restart Claude Code to pick up the changes.
+
 ## Troubleshooting
 
 **`calibredb not found`** — Make sure Calibre is installed and `calibredb` is in your PATH. On macOS, Calibre installs CLI tools to `/Applications/calibre.app/Contents/MacOS/`. Add it to PATH or set `CALIBREDB_PATH`.
