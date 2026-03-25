@@ -105,8 +105,10 @@ Or create `.mcp.json` manually in your project root (see above).
 
 ## Roadmap
 
-- [ ] Custom column read/write (`get_custom_columns`, `set_custom_column`)
-- [ ] Library management (`add_book`, `edit_metadata`, batch tagging)
+- [x] Search and retrieval (`search_books`, `get_book_info`, `get_epub_path`, `list_series`)
+- [x] Custom columns and metadata (`get_custom_columns`, `set_custom_column`, `set_metadata`)
+- [ ] Book import (`add_book`, `add_format`)
+- [ ] Batch tag management
 
 ## License
 

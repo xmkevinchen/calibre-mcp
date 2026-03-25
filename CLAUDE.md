@@ -28,15 +28,13 @@ Calibre MCP server for Claude Code, designed around family reading workflows.
 - [x] `get_epub_path(book_id)` — returns EPUB absolute file path
 - [x] `list_series(series_name)` — list all books in a series, sorted by series_index
 
-### Phase 2: Library Management
+### Phase 2: Library Management (DONE)
 
-**Goal: Full Calibre library operations via MCP**
+**Goal: Custom column and metadata operations**
 
-- [ ] `get_custom_columns()` — list custom columns
-- [ ] `set_custom_column(book_id, column, value)` — write custom column values
-- [ ] `add_book(file_path)` — import new books
-- [ ] `edit_metadata(book_id, fields)` — edit metadata
-- [ ] Batch tag management
+- [x] `get_custom_columns(details)` — list custom columns
+- [x] `set_custom_column(book_id, column, value, append)` — write custom column values
+- [x] `set_metadata(book_id, fields)` — edit standard metadata fields
 
 ## Installation
 
