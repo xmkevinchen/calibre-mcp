@@ -12,6 +12,9 @@ Talks to your local Calibre library via `calibredb` CLI — no Content Server ne
 | `get_book_info` | Get full metadata for a book by ID |
 | `get_epub_path` | Get absolute EPUB file path (for downstream processing) |
 | `list_series` | List all books in a series, sorted by index |
+| `get_custom_columns` | List custom columns defined in the library |
+| `set_custom_column` | Set or append custom column values for a book |
+| `set_metadata` | Edit standard metadata fields (title, authors, tags, series, etc.) |
 
 ## Installation
 
