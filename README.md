@@ -102,9 +102,8 @@ Or create `.mcp.json` manually in your project root (see above).
 
 ## Roadmap
 
-- [ ] Kindle push (`send_to_kindle`)
-- [ ] Reading progress tracking via custom columns
-- [ ] Library management (add/edit books, batch tagging)
+- [ ] Custom column read/write (`get_custom_columns`, `set_custom_column`)
+- [ ] Library management (`add_book`, `edit_metadata`, batch tagging)
 
 ## License
 
