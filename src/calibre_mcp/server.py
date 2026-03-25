@@ -1,11 +1,8 @@
 """
 Calibre MCP Server
 
-Kai's Calibre MCP server for family reading workflow.
-Local mode: reads directly from ~/Calibre Library/ via calibredb CLI.
-
-Usage:
-    uv run server.py
+MCP server for Calibre book library management.
+Local mode: reads directly from Calibre Library via calibredb CLI.
 """
 
 import json
@@ -181,5 +178,9 @@ def list_series(
     return result
 
 
-if __name__ == "__main__":
+def main():
     mcp.run()
+
+
+if __name__ == "__main__":
+    main()

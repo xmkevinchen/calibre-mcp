@@ -66,24 +66,51 @@ Track per-child reading status in Calibre custom columns:
 - [ ] `get_custom_columns()` — list custom columns
 - [ ] Batch tag management
 
-## Configuration
+## Installation
+
+### Prerequisites
+
+- [Calibre](https://calibre-ebook.com/) installed with `calibredb` in PATH
+- [uv](https://docs.astral.sh/uv/) or [uvx](https://docs.astral.sh/uv/guides/tools/)
+
+### Claude Code
+
+Add to `~/.claude.json` under `mcpServers`:
 
 ```json
-// .mcp.json in project root
 {
-  "mcpServers": {
-    "calibre": {
-      "command": "uv",
-      "args": ["run", "--directory", "/path/to/calibre-mcp", "server.py"],
-      "env": {
-        "CALIBRE_LIBRARY_PATH": "/path/to/Calibre Library"
-      }
+  "calibre": {
+    "command": "uvx",
+    "args": ["--from", "git+https://github.com/xmkevinchen/calibre-mcp.git", "calibre-mcp"],
+    "env": {
+      "CALIBRE_LIBRARY_PATH": "/path/to/Calibre Library"
     }
   }
 }
 ```
 
+Or for local development:
+
+```json
+{
+  "calibre": {
+    "command": "uvx",
+    "args": ["--from", "/path/to/calibre-mcp", "calibre-mcp"],
+    "env": {
+      "CALIBRE_LIBRARY_PATH": "/path/to/Calibre Library"
+    }
+  }
+}
+```
+
+### Environment Variables
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `CALIBRE_LIBRARY_PATH` | Path to Calibre library directory | `~/Calibre Library` |
+| `CALIBREDB_PATH` | Path to `calibredb` binary (if not in PATH) | auto-detected |
+
 ## References
 
 - `calibredb` docs: `calibredb --help`, subcommands `calibredb list --help` etc.
-- FastMCP: `pip install mcp[cli]`, use `@mcp.tool()` decorator
+- [FastMCP](https://github.com/jlowin/fastmcp): `pip install mcp[cli]`, use `@mcp.tool()` decorator
