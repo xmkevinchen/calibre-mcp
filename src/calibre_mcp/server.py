@@ -178,6 +178,97 @@ def list_series(
     return result
 
 
+@mcp.tool()
+def get_custom_columns(details: bool = False) -> str:
+    """
+    List all custom columns defined in the Calibre library.
+
+    Custom columns are user-defined metadata fields beyond the standard
+    fields (title, author, tags, etc.).
+
+    Args:
+        details: Include column types, default values, and other metadata
+    """
+    cmd = ["custom_columns"]
+    if details:
+        cmd.append("--details")
+
+    try:
+        result = _run_calibredb(*cmd)
+    except RuntimeError as e:
+        return f"Error retrieving custom columns: {e}"
+
+    return result if result else "No custom columns defined in this library."
+
+
+@mcp.tool()
+def set_custom_column(
+    book_id: int,
+    column: str,
+    value: str,
+    append: bool = False,
+) -> str:
+    """
+    Set the value of a custom column for a book.
+
+    Custom columns are referenced by their lookup name (e.g. "#status", "#rating").
+    Use get_custom_columns() to see available columns.
+
+    Args:
+        book_id: The Calibre book ID
+        column: Custom column lookup name (e.g. "#status")
+        value: Value to set
+        append: If True, append to existing values instead of replacing
+    """
+    cmd = ["set_custom"]
+    if append:
+        cmd.append("--append")
+    cmd.extend([column, str(book_id), value])
+
+    try:
+        _run_calibredb(*cmd)
+    except RuntimeError as e:
+        return f"Error setting custom column '{column}' for book {book_id}: {e}"
+
+    action = "appended to" if append else "set"
+    return f"Custom column '{column}' {action} '{value}' for book {book_id}."
+
+
+@mcp.tool()
+def set_metadata(
+    book_id: int,
+    fields: dict[str, str],
+) -> str:
+    """
+    Set standard metadata fields for a book.
+
+    Supported fields: title, authors, author_sort, comments, cover, isbn,
+    languages, pubdate, publisher, rating, series, series_index, sort, tags,
+    title_sort, identifiers.
+
+    Note: this REPLACES field values. For tags, pass all desired tags comma-separated.
+    For identifiers: "isbn:123456,goodreads:789".
+
+    Args:
+        book_id: The Calibre book ID
+        fields: Dict of field_name → value, e.g. {"tags": "sci-fi,classics", "series": "Foundation"}
+    """
+    if not fields:
+        return "No fields specified."
+
+    cmd = ["set_metadata", str(book_id)]
+    for name, value in fields.items():
+        cmd.extend(["--field", f"{name}:{value}"])
+
+    try:
+        result = _run_calibredb(*cmd)
+    except RuntimeError as e:
+        return f"Error setting metadata for book {book_id}: {e}"
+
+    summary = ", ".join(f"{k}={v}" for k, v in fields.items())
+    return f"Updated book {book_id}: {summary}\n{result}" if result else f"Updated book {book_id}: {summary}"
+
+
 def main():
     mcp.run()
 
